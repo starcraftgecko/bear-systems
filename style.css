@@ -1,0 +1,310 @@
+:root {
+  --cream: #F7F1E6;
+  --paper: #FFFDF8;
+  --ink: #3B2A20;
+  --brown: #8B5E3C;
+  --brown-dark: #5E3E27;
+  --tan: #EBD3AE;
+  --red: #D9534F;
+  --red-dark: #B03A37;
+  --gold: #E0B040;
+  --green: #5FA55A;
+  --blue: #4C8DD6;
+  --line: #E2D3B8;
+  --code-bg: #2B211A;
+  --code-fg: #F3E9D8;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Georgia", "Iowan Old Style", "Palatino Linotype", serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+a { color: var(--red-dark); }
+a:hover { color: var(--red); }
+
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+header.site {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(247, 241, 230, 0.92);
+  backdrop-filter: blur(4px);
+  border-bottom: 2px solid var(--line);
+}
+
+header.site .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: var(--brown-dark);
+  text-decoration: none;
+}
+
+.brand img { width: 34px; height: 34px; }
+
+nav.site-nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 0.95rem;
+  border-bottom: 2px solid transparent;
+}
+
+nav.site-nav a:hover { border-bottom-color: var(--gold); }
+
+.hero {
+  text-align: center;
+  padding: 64px 24px 40px;
+}
+
+.hero img.mascot {
+  width: 128px;
+  height: 128px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 6px 10px rgba(59, 42, 32, 0.25));
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  margin: 0 0 8px;
+  color: var(--brown-dark);
+}
+
+.hero p.tagline {
+  font-size: 1.2rem;
+  max-width: 640px;
+  margin: 0 auto 28px;
+  color: var(--ink);
+}
+
+.btn {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  padding: 12px 26px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 0 var(--red-dark);
+  transition: transform 0.08s ease;
+}
+
+.btn:hover { color: white; transform: translateY(-2px); }
+.btn.secondary {
+  background: var(--paper);
+  color: var(--brown-dark);
+  box-shadow: 0 4px 0 var(--line);
+  border: 2px solid var(--line);
+  margin-left: 10px;
+}
+
+section.panel {
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin: 28px 0;
+}
+
+section.panel h2 {
+  margin-top: 0;
+  color: var(--brown-dark);
+  border-bottom: 3px solid var(--gold);
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.cheatsheet {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 0.92rem;
+}
+
+.cheatsheet th, .cheatsheet td {
+  border-bottom: 1px solid var(--line);
+  padding: 7px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.cheatsheet th { color: var(--brown-dark); }
+.cheatsheet code { background: var(--tan); }
+
+.legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+.dot.green { background: var(--green); }
+.dot.yellow { background: var(--gold); }
+.dot.red { background: var(--red); }
+
+.project {
+  margin: 40px 0;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.project-head {
+  background: var(--tan);
+  padding: 18px 28px;
+}
+
+.project-head .num {
+  display: inline-block;
+  background: var(--brown);
+  color: var(--tan);
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.project-head h3 { margin: 8px 0 4px; color: var(--brown-dark); display: inline; }
+.project-head .teaches { display: block; font-size: 0.85rem; color: var(--brown-dark); margin-top: 6px; font-style: italic; }
+.project-body { padding: 22px 28px 28px; }
+
+.task { margin-bottom: 18px; }
+
+.code-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 720px) {
+  .code-columns { grid-template-columns: 1fr; }
+}
+
+.code-block h4 {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brown-dark);
+}
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-fg);
+  border-radius: 10px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-size: 0.86rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+pre code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+
+.comment { color: #9C8B76; }
+
+.output {
+  margin-bottom: 18px;
+}
+
+.output h4 {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brown-dark);
+}
+
+details {
+  margin-top: 14px;
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--brown-dark);
+}
+
+details ul { margin: 10px 0 0; padding-left: 20px; }
+details li { margin-bottom: 6px; }
+
+.try-this {
+  margin-top: 16px;
+  background: var(--cream);
+  border-left: 4px solid var(--red);
+  padding: 12px 18px;
+  border-radius: 0 10px 10px 0;
+}
+
+.try-this h4 { margin: 0 0 8px; color: var(--red-dark); }
+.try-this ol { margin: 0; padding-left: 20px; }
+
+footer.site {
+  text-align: center;
+  padding: 40px 24px 60px;
+  color: var(--brown-dark);
+  font-size: 0.9rem;
+}
+
+footer.site a { color: var(--brown-dark); font-weight: bold; }
+
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toc li a {
+  display: inline-block;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  color: var(--ink);
+}
+
+.toc li a:hover { border-color: var(--gold); }

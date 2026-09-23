@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bear Systems — Learn Bearcode (English L)</title>
+<meta name="description" content="A free course that takes six classic Python programs and rebuilds them, step by step, in Bearcode — the plain-English programming language also known as English L.">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <img src="forager.svg" alt="Forager the hobo bear">
+      Bear Systems
+    </a>
+    <nav class="site-nav">
+      <a href="#course">Course</a>
+      <a href="#cheatsheet">Cheatsheet</a>
+      <a href="https://github.com/starcraftgecko/Bear-Project-Hobo-Language">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <img class="mascot" src="forager.svg" alt="Forager, a hobo bear on the move with a bindle stick full of code fragments">
+  <h1>Bear Systems</h1>
+  <p class="tagline">Plain English is the source code. This course takes six programs you already know in
+    Python and rebuilds each one, line by line, in <strong>Bearcode</strong> — the language spoken by
+    <strong>Forager</strong>, the hobo bear, also known by its project name, <strong>English L</strong>.</p>
+  <a class="btn" href="#course">Start the course</a>
+  <a class="btn secondary" href="#cheatsheet">See the cheatsheet</a>
+</div>
+
+<div class="wrap">
+
+  <section class="panel" id="about">
+    <h2>How Bearcode works</h2>
+    <p>Every line of Bearcode is plain English. Before anything runs, a supervisor reads the line and
+      colours it:</p>
+    <div class="legend">
+      <span><span class="dot green"></span> <strong>green</strong> — runs exactly as written</span>
+      <span><span class="dot yellow"></span> <strong>yellow</strong> — an assumption was made (a typo fixed,
+        "a few" read as 3). Needs your OK</span>
+      <span><span class="dot red"></span> <strong>red</strong> — cannot run, and the reason is shown. Nothing
+        runs from a red line</span>
+    </div>
+    <p>Flow for every program: interpret the English, show you the interpretation, test it (a dry run plus any
+      <code>expect</code> lines you wrote), then deploy only once the tests pass. Every example in this course
+      was actually run — the Bearcode and the classic Python it is based on print the exact same output.</p>
+    <p>You'll need Python 3.9+ and the <code>english-l</code> project from
+      <a href="https://github.com/starcraftgecko/Bear-Project-Hobo-Language">GitHub</a>. Double-click
+      <code>el.bat</code> to open the interactive shell, or run <code>el.bat run study\01_times_table.en</code>
+      from a terminal to try a project file directly.</p>
+    <ol class="toc" style="list-style:none; display:flex; flex-wrap:wrap; gap:10px; padding-left:0;">
+      <li><a href="#p1">1. Times table</a></li>
+      <li><a href="#p2">2. Temperature converter</a></li>
+      <li><a href="#p3">3. FizzBuzz</a></li>
+      <li><a href="#p4">4. Grade statistics</a></li>
+      <li><a href="#p5">5. Factorial</a></li>
+      <li><a href="#p6">6. Prime finder</a></li>
+    </ol>
+  </section>
+
+  <section class="panel" id="cheatsheet">
+    <h2>Cheatsheet: Python → Bearcode</h2>
+    <p>These are the ideas you'll use in every project below.</p>
+    <table class="cheatsheet">
+      <tr><th>Python</th><th>Bearcode</th></tr>
+      <tr><td><code>x = 5</code></td><td><code>set x to 5</code></td></tr>
+      <tr><td><code>x += 2</code> &nbsp; <code>x -= 2</code></td><td><code>add 2 to x</code> &nbsp; <code>subtract 2 from x</code></td></tr>
+      <tr><td><code>x *= 3</code> &nbsp; <code>x /= 2</code></td><td><code>multiply x by 3</code> &nbsp; <code>divide x by 2</code></td></tr>
+      <tr><td><code>print(x)</code> / <code>print(f"hi {x}")</code></td><td><code>say x</code> / <code>say "hi {x}"</code></td></tr>
+      <tr><td><code>for i in range(1, 11):</code></td><td><code>repeat 10 times ... end</code> (count by hand)</td></tr>
+      <tr><td><code>for item in things:</code></td><td><code>for each item in things ... end</code></td></tr>
+      <tr><td><code>while x &lt;= 10:</code></td><td><code>while x is at most 10 ... end</code></td></tr>
+      <tr><td><code>if</code> / <code>elif</code> / <code>else</code></td><td><code>if</code> / <code>otherwise if</code> / <code>otherwise</code> / <code>end</code> (one <code>end</code> closes the chain)</td></tr>
+      <tr><td><code>x % 3 == 0</code></td><td><code>x modulo 3 is 0</code></td></tr>
+      <tr><td><code>x > 5</code> &nbsp; <code>x >= 5</code> &nbsp; <code>x != 5</code></td><td><code>x is more than 5</code> &nbsp; <code>x is at least 5</code> &nbsp; <code>x is not 5</code></td></tr>
+      <tr><td><code>def f(n): return n * 2</code></td><td><code>define f using n / give back n times 2 / end</code></td></tr>
+      <tr><td><code>y = f(3)</code></td><td><code>call f with 3 into y</code></td></tr>
+      <tr><td><code>len(a)</code> &nbsp; <code>sum(a)</code> &nbsp; <code>max(a)</code></td><td><code>the length of a</code> &nbsp; <code>the sum of a</code> &nbsp; <code>the largest in a</code></td></tr>
+      <tr><td><code>min(a)</code> &nbsp; <code>sorted(a)</code></td><td><code>the smallest in a</code> &nbsp; <code>a sorted</code></td></tr>
+      <tr><td><code>a.append(4)</code> &nbsp; <code>a = []</code></td><td><code>add 4 to a</code> &nbsp; <code>set a to an empty list</code></td></tr>
+      <tr><td><code>assert x == 3</code></td><td><code>expect x is 3</code> (a failed expect stops the deploy)</td></tr>
+      <tr><td><code># comment</code></td><td><code># comment</code> (own line)</td></tr>
+    </table>
+    <p style="font-size:0.85rem; color:var(--brown-dark);">Not in Bearcode yet: keyboard input, string
+      reversing/indexing, dictionaries, imports, classes, try/except, <code>range()</code>. Left out on
+      purpose, or not built yet.</p>
+  </section>
+
+  <h2 id="course" style="color:var(--brown-dark); margin-top:48px;">The course: six programs, twice each</h2>
+  <p>Read the classic Python, then the Bearcode next to it — notice which line matches which. Each project
+    file lives in <code>study/</code> in the repo, so you can run it yourself.</p>
+
+  <!-- PROJECT 1 -->
+  <article class="project" id="p1">
+    <div class="project-head">
+      <span class="num">1</span><h3>Times table</h3>
+      <span class="teaches">Teaches: loops and counting</span>
+    </div>
+    <div class="project-body">
+      <p class="task">Print the 7 times table, from 7 × 1 to 7 × 10 — the first loop most people ever write.</p>
+      <div class="code-columns">
+        <div class="code-block">
+          <h4>Classic Python</h4>
+<pre><code>number = 7
+for step in range(1, 11):
+    product = number * step
+    print(f"{number} x {step} = {product}")</code></pre>
+        </div>
+        <div class="code-block">
+          <h4>Bearcode — study/01_times_table.en</h4>
+<pre><code><span class="comment"># Count from 1 to 10 and multiply.
+# Bearcode has no "range", so we count by hand.</span>
+set number to 7
+set step to 0
+set product to 0
+repeat 10 times
+    add 1 to step
+    set product to number times step
+    say "{number} x {step} = {product}"
+end
+expect product is 70
+expect step is 10</code></pre>
+        </div>
+      </div>
+      <div class="output">
+        <h4>Output (identical for both)</h4>
+<pre><code>7 x 1 = 7
+7 x 2 = 14
+7 x 3 = 21
+...
+7 x 10 = 70</code></pre>
+      </div>
+      <details>
+        <summary>Read it line by line</summary>
+        <ul>
+          <li><code>repeat 10 times ... end</code> is the loop; everything between them runs ten times.</li>
+          <li>Python's <code>range(1, 11)</code> counts for you. Bearcode has no range, so <code>step</code>
+            starts at 0 and gets <code>add 1 to step</code> every time round.</li>
+          <li><code>set product to number times step</code> is a formula — <code>times</code> means multiply.</li>
+          <li><code>"{number} x {step}"</code> inserts the current values into the text.</li>
+          <li><code>set product to 0</code> before the loop gives it a starting value, so it's safe to use
+            after the loop ends (the bear warns you if you forget).</li>
+          <li><code>expect</code> lines are tests — if one is false, nothing is deployed.</li>
+        </ul>
+      </details>
+      <div class="try-this">
+        <h4>Try this</h4>
+        <ol>
+          <li>Change <code>number</code> to 12 and the loop to 12 times. Update the expects.</li>
+          <li>Print only the even results (see FizzBuzz for <code>modulo</code>).</li>
+          <li>Make it count down from 10 to 1 instead.</li>
+        </ol>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 2 -->
+  <article class="project" id="p2">
+    <div class="project-head">
+      <span class="num">2</span><h3>Temperature converter</h3>
+      <span class="teaches">Teaches: lists, loops, formulas, decimals</span>
+    </div>
+    <div class="project-body">
+      <p class="task">Convert a list of Celsius temperatures to Fahrenheit with F = C × 9 / 5 + 32.</p>
+      <div class="code-columns">
+        <div class="code-block">
+          <h4>Classic Python</h4>
+<pre><code>temperatures = [0, 20, 37, 100]
+for c in temperatures:
+    f = c * 9 / 5 + 32
+    print(f"{c} C is {f} F")</code></pre>
+        </div>
+        <div class="code-block">
+          <h4>Bearcode — study/02_temperature.en</h4>
+<pre><code><span class="comment"># F = C x 9 / 5 + 32.</span>
+set temperatures to a list of 0, 20, 37, 100
+set f to 0
+for each c in temperatures
+    set f to c times 9 divided by 5 plus 32
+    say "{c} C is {f} F"
+end
+expect f is 212</code></pre>
+        </div>
+      </div>
+      <div class="output">
+        <h4>Output (identical for both)</h4>
+<pre><code>0 C is 32.0 F
+20 C is 68.0 F
+37 C is 98.6 F
+100 C is 212.0 F</code></pre>
+      </div>
+      <details>
+        <summary>Read it line by line</summary>
+        <ul>
+          <li><code>a list of 0, 20, 37, 100</code> makes a list; <code>for each c in temperatures</code>
+            visits each item once, calling it <code>c</code>.</li>
+          <li><code>c times 9 divided by 5 plus 32</code> reads left to right — multiplication and division
+            before plus, exactly like school maths.</li>
+          <li>Division always gives a decimal, which is why 0 C prints as 32.0 F, not 32 F — same as Python.</li>
+          <li><code>set f to 0</code> before the loop: a name set only inside a loop might never be set, so
+            the bear asks you to give it a starting value.</li>
+          <li>The final <code>expect</code> checks the last conversion: water boils at 100 C = 212 F.</li>
+        </ul>
+      </details>
+      <div class="try-this">
+        <h4>Try this</h4>
+        <ol>
+          <li>Add -40 to the list (it's the same number in both scales!).</li>
+          <li>Convert the other way: Fahrenheit to Celsius is (F minus 32) times 5 divided by 9.</li>
+          <li>Print "hot" when f is more than 90 and "ok" otherwise (see FizzBuzz for if / otherwise).</li>
+        </ol>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 3 -->
+  <article class="project" id="p3">
+    <div class="project-head">
+      <span class="num">3</span><h3>FizzBuzz</h3>
+      <span class="teaches">Teaches: decisions, remainders, nested blocks</span>
+    </div>
+    <div class="project-body">
+      <p class="task">Count 1 to 30. Multiples of 3 say Fizz, multiples of 5 say Buzz, multiples of both say
+        FizzBuzz, everything else says the number.</p>
+      <div class="code-columns">
+        <div class="code-block">
+          <h4>Classic Python</h4>
+<pre><code>for number in range(1, 31):
+    if number % 15 == 0:
+        print("FizzBuzz")
+    elif number % 3 == 0:
+        print("Fizz")
+    elif number % 5 == 0:
+        print("Buzz")
+    else:
+        print(number)</code></pre>
+        </div>
+        <div class="code-block">
+          <h4>Bearcode — study/03_fizzbuzz.en</h4>
+<pre><code><span class="comment"># "modulo" is the remainder after dividing.</span>
+set number to 0
+repeat 30 times
+    add 1 to number
+    if number modulo 15 is 0
+        say "FizzBuzz"
+    otherwise if number modulo 3 is 0
+        say "Fizz"
+    otherwise if number modulo 5 is 0
+        say "Buzz"
+    otherwise
+        say number
+    end
+end
+expect number is 30</code></pre>
+        </div>
+      </div>
+      <div class="output">
+        <h4>Output (identical for both, 30 lines)</h4>
+<pre><code>1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+...
+FizzBuzz</code></pre>
+      </div>
+      <details>
+        <summary>Read it line by line</summary>
+        <ul>
+          <li><code>number modulo 15 is 0</code> is Python's <code>number % 15 == 0</code>; <code>modulo</code>
+            is the remainder after dividing, and <code>is</code> means equals.</li>
+          <li>Order matters: test 15 first. Test 3 first and 15 says "Fizz" and never reaches "FizzBuzz" — the
+            first true branch wins.</li>
+          <li>Python's <code>if</code> / <code>elif</code> / <code>else</code> becomes <code>if</code> /
+            <code>otherwise if</code> / <code>otherwise</code>. The whole chain closes with ONE
+            <code>end</code>; the loop then needs its own.</li>
+          <li>Indentation is just for your eyes — Bearcode only cares about <code>end</code>.</li>
+          <li><code>say number</code> prints the number itself; <code>say "Fizz"</code> prints the word.</li>
+        </ul>
+      </details>
+      <div class="try-this">
+        <h4>Try this</h4>
+        <ol>
+          <li>Change the words to Bear and Hobo.</li>
+          <li>Make it count to 100.</li>
+          <li>Add a fourth rule: multiples of 7 say Bindle.</li>
+        </ol>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 4 -->
+  <article class="project" id="p4">
+    <div class="project-head">
+      <span class="num">4</span><h3>Grade statistics</h3>
+      <span class="teaches">Teaches: lists and the built-in helpers</span>
+    </div>
+    <div class="project-body">
+      <p class="task">Given a list of test scores, report the total, count, average, best and worst, then add
+        a score and sort them.</p>
+      <div class="code-columns">
+        <div class="code-block">
+          <h4>Classic Python</h4>
+<pre><code>grades = [88, 92, 79, 95, 70]
+total = sum(grades)
+count = len(grades)
+average = sum(grades) / len(grades)
+best = max(grades)
+worst = min(grades)
+print(f"Total: {total}")
+print(f"Count: {count}")
+print(f"Average: {average}")
+print(f"Best: {best}, worst: {worst}")
+grades.append(100)
+count = len(grades)
+print(f"After one more grade there are {count} grades")
+print(sorted(grades))</code></pre>
+        </div>
+        <div class="code-block">
+          <h4>Bearcode — study/04_grade_stats.en</h4>
+<pre><code>set grades to a list of 88, 92, 79, 95, 70
+set total to the sum of grades
+set count to the length of grades
+set average to the average of grades
+set best to the largest in grades
+set worst to the smallest in grades
+say "Total: {total}"
+say "Count: {count}"
+say "Average: {average}"
+say "Best: {best}, worst: {worst}"
+add 100 to grades
+set count to the length of grades
+say "After one more grade there are {count} grades"
+say grades sorted
+expect best is 95
+expect worst is 70
+expect count is 6</code></pre>
+        </div>
+      </div>
+      <div class="output">
+        <h4>Output (identical for both)</h4>
+<pre><code>Total: 424
+Count: 5
+Average: 84.8
+Best: 95, worst: 70
+After one more grade there are 6 grades
+[70, 79, 88, 92, 95, 100]</code></pre>
+      </div>
+      <details>
+        <summary>Read it line by line</summary>
+        <ul>
+          <li>Python's <code>sum()</code>, <code>len()</code>, <code>max()</code>, <code>min()</code> read as
+            English: <code>the sum of grades</code>, <code>the length of grades</code>, <code>the largest in
+            grades</code>, <code>the smallest in grades</code>.</li>
+          <li><code>the average of grades</code> is sum divided by count — Python has no built-in average, so
+            this is the bear being helpful.</li>
+          <li><code>add 100 to grades</code> appends to the end of a list (Python's
+            <code>grades.append(100)</code>). The bear knows <code>grades</code> is a list, so <code>add</code>
+            means append here, not maths.</li>
+          <li><code>say grades sorted</code> prints the list smallest to largest without changing the
+            original.</li>
+          <li>Three <code>expect</code>s check the answers — change a grade and watch them fail.</li>
+        </ul>
+      </details>
+      <div class="try-this">
+        <h4>Try this</h4>
+        <ol>
+          <li>Add a grade of 50 and see the average change.</li>
+          <li>Print how many grades are more than 80 (a loop with a counter and an if).</li>
+          <li>Print the range: best minus worst.</li>
+        </ol>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 5 -->
+  <article class="project" id="p5">
+    <div class="project-head">
+      <span class="num">5</span><h3>Factorial</h3>
+      <span class="teaches">Teaches: functions — define once, use many times</span>
+    </div>
+    <div class="project-body">
+      <p class="task">5! (five factorial) is 5 × 4 × 3 × 2 × 1 = 120. Write it as a function, then use the
+        function on a list.</p>
+      <div class="code-columns">
+        <div class="code-block">
+          <h4>Classic Python</h4>
+<pre><code>def factorial(n):
+    answer = 1
+    i = 2
+    while i &lt;= n:
+        answer *= i
+        i += 1
+    return answer
+
+small = factorial(5)
+big = factorial(10)
+print(f"5! = {small}")
+print(f"10! = {big}")
+for x in [1, 2, 3, 4, 5, 6]:
+    answer = factorial(x)
+    print(f"{x}! = {answer}")</code></pre>
+        </div>
+        <div class="code-block">
+          <h4>Bearcode — study/05_factorial.en</h4>
+<pre><code><span class="comment"># "define" teaches the bear a new word.</span>
+define factorial using n
+    set answer to 1
+    set i to 2
+    while i is at most n
+        multiply answer by i
+        add 1 to i
+    end
+    give back answer
+end
+
+call factorial with 5 into small
+call factorial with 10 into big
+say "5! = {small}"
+say "10! = {big}"
+
+set numbers to a list of 1, 2, 3, 4, 5, 6
+set answer to 0
+for each x in numbers
+    call factorial with x into answer
+    say "{x}! = {answer}"
+end
+expect small is 120
+expect big is 3628800
+expect answer is 720</code></pre>
+        </div>
+      </div>
+      <div class="output">
+        <h4>Output (identical for both)</h4>
+<pre><code>5! = 120
+10! = 3628800
+1! = 1
+2! = 2
+3! = 6
+4! = 24
+5! = 120
+6! = 720</code></pre>
+      </div>
+      <details>
+        <summary>Read it line by line</summary>
+        <ul>
+          <li><code>define factorial using n ... end</code> teaches the bear a new word — <code>n</code> is
+            the input. Python: <code>def factorial(n):</code></li>
+          <li><code>give back answer</code> is Python's <code>return</code> — it hands the result to whoever
+            called the function.</li>
+          <li><code>call factorial with 5 into small</code> runs the function with n = 5 and stores the result
+            in <code>small</code>. Python: <code>small = factorial(5)</code>.</li>
+          <li><code>while i is at most n</code> repeats while the condition is true — <code>is at most</code>
+            means &le;.</li>
+          <li><code>multiply answer by i</code> is <code>answer *= i</code>; <code>add 1 to i</code> is
+            <code>i += 1</code>.</li>
+          <li>Names inside a function (<code>answer</code>, <code>i</code>) are private to it — that's called
+            scope.</li>
+        </ul>
+      </details>
+      <div class="try-this">
+        <h4>Try this</h4>
+        <ol>
+          <li>Make the loop go to 12 and see when the numbers get big.</li>
+          <li>Write a function <code>square using n</code> that gives back <code>n times n</code>.</li>
+          <li>Write <code>power using base, exponent</code> with a loop.</li>
+        </ol>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 6 -->
+  <article class="project" id="p6">
+    <div class="project-head">
+      <span class="num">6</span><h3>Prime finder</h3>
+      <span class="teaches">Teaches: a loop inside a loop</span>
+    </div>
+    <div class="project-body">
+      <p class="task">List every prime number up to 30. A prime has no divisor except 1 and itself.</p>
+      <div class="code-columns">
+        <div class="code-block">
+          <h4>Classic Python</h4>
+<pre><code>primes = []
+for candidate in range(2, 31):
+    found = 0
+    divisor = 2
+    while divisor * divisor &lt;= candidate:
+        if candidate % divisor == 0:
+            found = 1
+        divisor += 1
+    if found == 0:
+        primes.append(candidate)
+print(f"Primes up to 30: {primes}")</code></pre>
+        </div>
+        <div class="code-block">
+          <h4>Bearcode — study/06_primes.en</h4>
+<pre><code><span class="comment"># A prime has no divisor except 1 and itself.</span>
+set primes to an empty list
+set candidate to 1
+repeat 29 times
+    add 1 to candidate
+    set found to 0
+    set divisor to 2
+    while divisor times divisor is at most candidate
+        if candidate modulo divisor is 0
+            set found to 1
+        end
+        add 1 to divisor
+    end
+    if found is 0
+        add candidate to primes
+    end
+end
+say "Primes up to 30: {primes}"
+expect the length of primes is 10
+expect the largest in primes is 29</code></pre>
+        </div>
+      </div>
+      <div class="output">
+        <h4>Output (identical for both)</h4>
+<pre><code>Primes up to 30: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]</code></pre>
+      </div>
+      <details>
+        <summary>Read it line by line</summary>
+        <ul>
+          <li><code>set primes to an empty list</code> makes a list with nothing in it yet; <code>add
+            candidate to primes</code> appends to it.</li>
+          <li>The outer loop tries each candidate from 2 to 30 — <code>repeat 29 times</code> with <code>add 1
+            to candidate</code> visits 2, 3, ... 30.</li>
+          <li>The inner <code>while</code> tries divisors 2, 3, 4 ... Only divisors up to the square root
+            matter: <code>divisor times divisor is at most candidate</code>.</li>
+          <li><code>found</code> is a flag: 0 means no divisor yet, 1 means a divisor was found (not prime).</li>
+          <li><code>if found is 0</code> after the inner loop: no divisor found means prime, so keep it.</li>
+          <li>Two nested loops means two <code>end</code>s for the loops, plus one for each <code>if</code> —
+            every opener needs an <code>end</code>.</li>
+        </ul>
+      </details>
+      <div class="try-this">
+        <h4>Try this</h4>
+        <ol>
+          <li>Change 30 to 100 (and 29 to 99).</li>
+          <li>Print how many primes there are instead of the list.</li>
+          <li>Print only the primes that end in 7.</li>
+        </ol>
+      </div>
+    </div>
+  </article>
+
+  <section class="panel" id="next">
+    <h2>What's next</h2>
+    <p>Every file above lives in <code>study/</code> in the repo, ready to run. From here:</p>
+    <ul>
+      <li>Open the interactive shell (<code>el.bat</code>) and type the lines yourself, one at a time, to see
+        each one coloured as you go.</li>
+      <li>Run <code>el.bat check study\03_fizzbuzz.en</code> to see "understood as" and the Python it builds.</li>
+      <li>Break an <code>expect</code> on purpose and watch the deploy refuse.</li>
+      <li>Read <code>LANGUAGE.txt</code> in the repo for the complete reference of every strict form and
+        pattern the bear understands.</li>
+    </ul>
+  </section>
+
+</div>
+
+<footer class="site">
+  <p>Bear Systems is the course site for <strong>Bearcode</strong> (project name: English L), spoken by
+    Forager the hobo bear.</p>
+  <p><a href="https://github.com/starcraftgecko/Bear-Project-Hobo-Language">github.com/starcraftgecko/Bear-Project-Hobo-Language</a></p>
+</footer>
+
+</body>
+</html>
